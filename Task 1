@@ -1,0 +1,62 @@
+tasks = []
+
+def show():
+    if len(tasks) == 0:
+        print("No task added yet.")
+    else:
+        print("Your Tasks:")
+        i = 1
+        for t in tasks:
+            print(i, ".", t)
+            i += 1
+
+def add():
+    t = input("Enter task: ")
+    tasks.append(t)
+    print("Task added!")
+
+def remove():
+    show()
+    if len(tasks) == 0:
+        return
+    try:
+        num = int(input("Enter task number to delete: "))
+        del tasks[num-1]
+        print("Task deleted!")
+    except:
+        print("Wrong input!")
+
+def update():
+    show()
+    if len(tasks) == 0:
+        return
+    try:
+        num = int(input("Enter task number to update: "))
+        new = input("Enter new task: ")
+        tasks[num-1] = new
+        print("Task updated!")
+    except:
+        print("Something went wrong!")
+
+while True:
+    print("\n---- TO DO LIST ----")
+    print("1. Show Tasks")
+    print("2. Add Task")
+    print("3. Update Task")
+    print("4. Remove Task")
+    print("5. Exit")
+    ch = input("Enter choice: ")
+
+    if ch == "1":
+        show()
+    elif ch == "2":
+        add()
+    elif ch == "3":
+        update()
+    elif ch == "4":
+        remove()
+    elif ch == "5":
+        print("Goodbye!")
+        break
+    else:
+        print("Invalid choice!")
