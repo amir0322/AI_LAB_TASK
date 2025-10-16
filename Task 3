@@ -1,0 +1,44 @@
+class SmartThermoAgent:
+    def __init__(self, target_temp):
+        self.target_temp = target_temp
+        self.last_action = None
+
+    def sense_temperature(self, temp_now):
+        self.temp_now = temp_now
+
+    def decide_action(self):
+        if self.temp_now < self.target_temp:
+            action = "Heater ON"
+        elif self.temp_now > self.target_temp:
+            action = "Heater OFF"
+        else:
+            action = "Stable (No Action)"
+
+        if action == self.last_action:
+            action = "No Change (Same as before)"
+        else:
+            self.last_action = action
+
+        return action
+
+    def perform_action(self, room):
+        action = self.decide_action()
+        print(f"{room}: Current = {self.temp_now}°C | Target = {self.target_temp}°C → {action}")
+
+
+# Room temperatures
+room_temps = {
+    "Living Room": 18,
+    "Bedroom": 22,
+    "Kitchen": 25,
+    "Study Room": 20
+}
+
+# Desired temperature is 22°C
+controller = SmartThermoAgent(22)
+
+print("Smart Home Temperature)\n")
+
+for room_name, temp in room_temps.items():
+    controller.sense_temperature(temp)
+    controller.perform_action(room_name)
